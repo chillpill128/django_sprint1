@@ -46,20 +46,26 @@ posts = [
 ]
 
 def index(request):
-    return render(request, 'blog/index.html', {'posts': reversed(posts)})
+    a={'posts': reversed(posts)}
+    b='blog/index.html',
+    return render(request, b, a)
 
 def post_detail(request, inf):
+    a='blog/detail.html',
     flag = False
     current_position = -1
     for i in posts:
         current_position += 1
-        if i['id'] == inf:
+        if i['inf'] == inf:
             flag = True
             break
     if flag is not True:
         return HttpResponseNotFound("404")
-    return render(request, 'blog/detail.html', {'post': posts[current_position]})
+    context = {'post': posts[current_position]}
+    return render(request, a, context)
 
 def category_posts(request, inf):
-    return render(request, 'blog/category.html', {'category_slug': inf})
+    a={'category_slug': inf}
+    b='blog/category.html',
+    return render(request, b, a)
 
